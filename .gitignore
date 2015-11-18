@@ -1,0 +1,31 @@
+## Eclipse files
+.metadata
+.gradle
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.project
+.settings/
+.loadpath
+*.launch
+.classpath
+.recommenders/
+
+## Emacs files
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+## IntelliJ files
+.idea/
+*.iml
+out/
