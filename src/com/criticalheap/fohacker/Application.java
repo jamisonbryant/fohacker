@@ -3,18 +3,25 @@ package com.criticalheap.fohacker;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
- * Main application class. Contains logic for creating application GUI, handling user input, and analyzing passwords.
+ * Main application class. Contains logic for creating application GUI, handling user input, and displaying output.
+ *
+ * @author Jamison Bryant
  */
 public class Application
 {
     private JFrame frame;
+    private Hacker hacker;
 
     /**
-     * Creates GUI
+     * Builds GUI
      */
-    public void create()
+    public void build()
     {
         // Create main frame
         frame = new JFrame("FOHacker");
@@ -47,6 +54,36 @@ public class Application
         JTextArea commandsField = new JTextArea();
         commandsField.setEditable(false);
         outputPanel.add(commandsField);
+
+        // Create controls handlers
+        startButton.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                // Get passwords from field
+                String[] list = passwordsField.getText().split(System.getProperty("line.separator"));
+
+                // Create hacker object
+                hacker = new Hacker(new ArrayList<String>(Arrays.asList(list)));
+
+                // Start password hacking algorithm
+            }
+        });
+
+        resetButton.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                // Delete hacker object
+                hacker = null;
+
+                // Clear text fields
+                passwordsField.setText("");
+                commandsField.setText("");
+            }
+        });
 
         // Add panels to frame
         contentPanel.add(inputPanel);

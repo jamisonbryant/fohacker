@@ -25,7 +25,7 @@ public class Launcher
         /*
          * Prepare and display application
          */
-        app.create();
+        app.build();
         app.display();
     }
 }
