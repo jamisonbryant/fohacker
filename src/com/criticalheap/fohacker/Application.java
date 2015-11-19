@@ -26,12 +26,13 @@ public class Application
         // Create main frame
         frame = new JFrame("FOHacker");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setSize(700, 400);
+        frame.setSize(300, 300);
         frame.setLocationRelativeTo(null);
 
         // Create content panel
-        Container contentPanel = frame.getContentPane();
+        JPanel contentPanel = (JPanel) frame.getContentPane();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+        contentPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         // Create input panel
         JPanel inputPanel = new JPanel();
@@ -46,14 +47,6 @@ public class Application
         JButton resetButton = new JButton("Reset");
         controlsPanel.add(startButton);
         controlsPanel.add(resetButton);
-
-        // Create output panel
-        JPanel outputPanel = new JPanel();
-        outputPanel.setLayout(new BorderLayout());
-        outputPanel.setBorder(BorderFactory.createTitledBorder("Commands"));
-        JTextArea commandsField = new JTextArea();
-        commandsField.setEditable(false);
-        outputPanel.add(commandsField);
 
         // Create controls handlers
         startButton.addActionListener(e -> {
@@ -72,13 +65,11 @@ public class Application
 
             // Clear text fields
             passwordsField.setText("");
-            commandsField.setText("");
         });
 
         // Add panels to frame
         contentPanel.add(inputPanel);
         contentPanel.add(controlsPanel);
-        contentPanel.add(outputPanel);
     }
 
     /**
