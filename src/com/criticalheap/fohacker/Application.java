@@ -25,7 +25,7 @@ public class Application
     {
         // Create main frame
         frame = new JFrame("FOHacker");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(700, 400);
         frame.setLocationRelativeTo(null);
 
@@ -56,33 +56,23 @@ public class Application
         outputPanel.add(commandsField);
 
         // Create controls handlers
-        startButton.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                // Get passwords from field
-                String[] list = passwordsField.getText().split(System.getProperty("line.separator"));
+        startButton.addActionListener(e -> {
+            // Get passwords from field
+            String[] list = passwordsField.getText().split(System.getProperty("line.separator"));
 
-                // Create hacker object
-                hacker = new Hacker(new ArrayList<String>(Arrays.asList(list)));
+            // Create hacker object
+            hacker = new Hacker(new ArrayList<>(Arrays.asList(list)));
 
-                // Start password hacking algorithm
-            }
+            // Start password hacking algorithm
         });
 
-        resetButton.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                // Delete hacker object
-                hacker = null;
+        resetButton.addActionListener(e -> {
+            // Delete hacker object
+            hacker = null;
 
-                // Clear text fields
-                passwordsField.setText("");
-                commandsField.setText("");
-            }
+            // Clear text fields
+            passwordsField.setText("");
+            commandsField.setText("");
         });
 
         // Add panels to frame
