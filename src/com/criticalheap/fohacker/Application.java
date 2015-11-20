@@ -1,10 +1,7 @@
 package com.criticalheap.fohacker;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -88,8 +85,7 @@ public class Application
                         // Process correct chars number
                         try {
                             // Set correct number of chars
-                            int chars = Integer.parseInt(input);
-                            hacker.setCorrectChars(chars);
+                            password = hacker.getGuess(Integer.parseInt(input)).toUpperCase();
                         } catch(NumberFormatException nfe) {
                             // Display invalid input dialog
                             JOptionPane.showMessageDialog(frame, "Invalid input", "FOHacker",
@@ -98,6 +94,10 @@ public class Application
                     } else {
                         // Mark hacking as complete (will exit loop)
                         isComplete = true;
+
+                        // Display hacking successful dialog
+                        JOptionPane.showMessageDialog(frame, "Hacking successful!", "FOHacker",
+                                JOptionPane.INFORMATION_MESSAGE);
                     }
                 } else {
                     // Display hacking cancelled dialog
