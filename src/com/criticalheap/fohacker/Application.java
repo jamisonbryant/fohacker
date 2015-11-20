@@ -51,12 +51,65 @@ public class Application
         // Create controls handlers
         startButton.addActionListener(e -> {
             // Get passwords from field
-            String[] list = passwordsField.getText().split(System.getProperty("line.separator"));
+            String[] list = passwordsField.getText().split("\n");
+            int maxLength = 0;
+
+            for (String s : list) {
+                if (s.length() > maxLength) {
+                    maxLength = s.length();
+                }
+            }
+
 
             // Create hacker object
             hacker = new Hacker(new ArrayList<>(Arrays.asList(list)));
+            boolean isComplete = false;
 
             // Start password hacking algorithm
+            do {
+                // Get next password to try
+                String password = hacker.getGuess().toUpperCase();
+
+                // Display password suggestion dialog
+                JOptionPane.showMessageDialog(frame, "Try " + password, "FOHacker", JOptionPane.INFORMATION_MESSAGE);
+
+                // Display password success prompt
+                int response = JOptionPane.showConfirmDialog(frame, "Did " + password + " work?", "FOHacker",
+                        JOptionPane.YES_NO_OPTION);
+
+                if (response != -1) {
+                    boolean wasSuccessful = (1 - response == 1);
+
+                    if (!wasSuccessful) {
+                        // Display correct chars input dialog
+                        String input = (String) JOptionPane.showInputDialog(frame, "How many characters were correct?",
+                                "FOHacker", JOptionPane.QUESTION_MESSAGE);
+
+                        // Process correct chars number
+                        try {
+                            // Set correct number of chars
+                            int chars = Integer.parseInt(input);
+                            hacker.setCorrectChars(chars);
+                        } catch(NumberFormatException nfe) {
+                            // Display invalid input dialog
+                            JOptionPane.showMessageDialog(frame, "Invalid input", "FOHacker",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        // Mark hacking as complete (will exit loop)
+                        isComplete = true;
+                    }
+                } else {
+                    // Display hacking cancelled dialog
+                    JOptionPane.showMessageDialog(frame, "Hacking cancelled", "FOHacker", JOptionPane.ERROR_MESSAGE);
+
+                    // Delete hacker object
+                    hacker = null;
+
+                    // Force break out of loop
+                    break;
+                }
+            } while (!isComplete);
         });
 
         resetButton.addActionListener(e -> {
